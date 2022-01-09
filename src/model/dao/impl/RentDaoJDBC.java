@@ -201,9 +201,37 @@ public class RentDaoJDBC implements RentDao {
 	}
 
 	@Override
-	public Rent findByIdOfMall(Mall mall) {
+	public List<Rent> findAllByIdOfMall(Mall mall) {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<Rent> allRents = new ArrayList<>();
+		try {
+			st = conn.prepareStatement(
+					"SELECT rent.*,rent.Id as Id, mall.Id as mallId, department_store.Id as departmentStoreId "
+							+ "FROM rent INNER JOIN mall "
+							+ "ON rent.MallId = mall.Id "
+							+ "INNER JOIN department_store "
+							+ "ON rent.DepartmentStoreId = department_store.Id "
+							+ "WHERE mall.Id= ? "
+					);
+			st.setInt(1, mall.getId());
+			rs = st.executeQuery();
+			Map <Integer, DepartmentStore> mapDep = new HashMap<>();
+			while(rs.next()) {
+				DepartmentStore dep = mapDep.get(rs.getInt("departmentStoreId"));
+				if(dep == null) dep = new DepartmentStore(rs.getInt("departmentStoreId"));
+				allRents.add(new Rent(rs.getInt("rent.Id"),rs.getDate("rent.CurrentMonth"), mall, dep,rs.getDouble("rent.CurrentRent"),rs.getDouble("rent.currentPayedRent"),rs.getBoolean("rent.Payed")));
+			}
+			return allRents;
+
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 }
