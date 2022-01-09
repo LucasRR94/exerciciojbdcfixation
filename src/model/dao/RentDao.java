@@ -12,6 +12,6 @@ public interface RentDao {
 	void deleteByIdRent(Integer id);
 	Rent findByIdRent(Integer id);
 	List <Rent> findAllRent();
-	Rent findByIdOfDepartmentStore(DepartmentStore dep);
-	Rent findByIdOfMall(Mall mall);
+	List <Rent> findAllByIdOfDepartmentStore(DepartmentStore dep);
+	List <Rent> findAllByIdOfMall(Mall mall);
 }
