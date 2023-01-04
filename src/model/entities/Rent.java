@@ -10,18 +10,18 @@ public class Rent implements Serializable{
 	private int id;
 	private Date currentMonth;
 	private int mallId;
-	private int departmentId;
+	private int departmentStoreId;
 	private Double currentRent;
 	private Double currentPayedRent;
 	private boolean payed;
 	
-	public Rent(int id, Date currentMonth, int mallId, int departmentId, Double currentRent, Double currentPayedRent,
+	public Rent(int id, Date currentMonth, int mallId, int departmentStoreId, Double currentRent, Double currentPayedRent,
 			boolean payed) {
 		super();
 		this.id = id;
 		this.currentMonth = currentMonth;
 		this.mallId = mallId;
-		this.departmentId = departmentId;
+		this.departmentStoreId = departmentStoreId;
 		this.currentRent = currentRent;
 		this.currentPayedRent = currentPayedRent;
 		this.payed = payed;
@@ -44,11 +44,11 @@ public class Rent implements Serializable{
 	public void setMallId(int mallId) {
 		this.mallId = mallId;
 	}
-	public int getDepartmentId() {
-		return departmentId;
+	public int getdepartmentStoreId() {
+		return departmentStoreId;
 	}
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
+	public void setdepartmentStoreId(int departmentStoreId) {
+		this.departmentStoreId = departmentStoreId;
 	}
 	public Double getCurrentRent() {
 		return currentRent;
@@ -88,8 +88,8 @@ public class Rent implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Rent [id=" + id + ", currentMonth=" + currentMonth + ", mallId=" + mallId + ", departmentId="
-				+ departmentId + ", currentRent=" + currentRent + ", currentPayedRent=" + currentPayedRent + ", payed="
+		return "Rent [id=" + id + ", currentMonth=" + currentMonth + ", mallId=" + mallId + ", departmentStoreId="
+				+ departmentStoreId + ", currentRent=" + currentRent + ", currentPayedRent=" + currentPayedRent + ", payed="
 				+ payed + "]";
 	}
 	
