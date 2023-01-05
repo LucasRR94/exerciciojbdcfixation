@@ -47,6 +47,26 @@ public class RentDaoJDBC implements RentDao {
 	@Override
 	public void updateRent(Rent rent) {
 		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE rent "
+				+ "SET CurrentMonth = ?, MallId = ?, DepartmentStoreId = ?, CurrentRent = ?, CurrentPayedRent = ?,payed = ? "
+				+ "WHERE Id = ? ");
+			st.setDate(1, new java.sql.Date(rent.getCurrentMonth().getTime()));
+			st.setInt(2, rent.getMallId());
+			st.setInt(3, rent.getdepartmentStoreId());
+			st.setDouble(4,rent.getCurrentRent());
+			st.setDouble(5, rent.getCurrentPayedRent());
+			st.setBoolean(6, rent.isPayed());
+			st.setInt(7,rent.getId());
+			st.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
