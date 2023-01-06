@@ -2,6 +2,7 @@ package model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -34,7 +35,15 @@ public class RentDaoJDBC implements RentDao {
 			st.setDouble(4, rent.getCurrentRent());
 			st.setDouble(5, rent.getCurrentPayedRent());
 			st.setBoolean(6, rent.isPayed());
-			st.executeUpdate();
+			int rowsAffected = st.executeUpdate();
+			if(rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					rent.setId(id);
+				}
+				DB.closeResultSet(rs);
+			}
 		}
 		catch(SQLException e) {
 			throw new DbException(e.getMessage());
