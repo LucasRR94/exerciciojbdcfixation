@@ -14,10 +14,10 @@ public class DepartmentStore implements Serializable {
 	private Date creationDate;
 	private Date StartedDateAtMall;
 	private int currentSizeOccupied;
-	private int mallId;
+	private Mall mall;
 	
 	public DepartmentStore(int id, String cnpj, String name, String email, Date creationDate, Date startedDateAtMall,
-			int currentSizeOccupied, int mallId) {
+			int currentSizeOccupied, Mall mall) {
 		super();
 		this.id = id;
 		this.cnpj = cnpj;
@@ -26,7 +26,7 @@ public class DepartmentStore implements Serializable {
 		this.creationDate = creationDate;
 		StartedDateAtMall = startedDateAtMall;
 		this.currentSizeOccupied = currentSizeOccupied;
-		this.mallId = mallId;
+		this.mall = mall;
 	}
 
 	public int getId() {
@@ -85,12 +85,12 @@ public class DepartmentStore implements Serializable {
 		this.currentSizeOccupied = currentSizeOccupied;
 	}
 
-	public int getMallId() {
-		return mallId;
+	public Mall getMall() {
+		return this.mall;
 	}
 
-	public void setMallId(int mallId) {
-		this.mallId = mallId;
+	public void setMall(Mall mall) {
+		this.mall = mall;
 	}
 
 	public static long getSerialversionuid() {
@@ -118,7 +118,9 @@ public class DepartmentStore implements Serializable {
 	public String toString() {
 		return "DepartmentStore [id=" + id + ", cnpj=" + cnpj + ", name=" + name + ", email=" + email
 				+ ", creationDate=" + creationDate + ", StartedDateAtMall=" + StartedDateAtMall
-				+ ", currentSizeOccupied=" + currentSizeOccupied + ", mallId=" + mallId + "]";
+				+ ", currentSizeOccupied=" + currentSizeOccupied + ", mall=" + mall + "]";
 	}
+
+	
 	
 }

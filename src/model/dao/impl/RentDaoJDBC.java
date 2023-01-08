@@ -30,8 +30,8 @@ public class RentDaoJDBC implements RentDao {
 					+ "VALUES "
 					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			st.setDate(1,new java.sql.Date(rent.getCurrentMonth().getTime()));
-			st.setInt(2, rent.getMallId());
-			st.setInt(3, rent.getdepartmentStoreId());
+			st.setInt(2, rent.getMall().getId());
+			st.setInt(3, rent.getdepartmentStore().getId());
 			st.setDouble(4, rent.getCurrentRent());
 			st.setDouble(5, rent.getCurrentPayedRent());
 			st.setBoolean(6, rent.isPayed());
@@ -62,8 +62,8 @@ public class RentDaoJDBC implements RentDao {
 				+ "SET CurrentMonth = ?, MallId = ?, DepartmentStoreId = ?, CurrentRent = ?, CurrentPayedRent = ?,payed = ? "
 				+ "WHERE Id = ? ");
 			st.setDate(1, new java.sql.Date(rent.getCurrentMonth().getTime()));
-			st.setInt(2, rent.getMallId());
-			st.setInt(3, rent.getdepartmentStoreId());
+			st.setInt(2, rent.getMall().getId());
+			st.setInt(3, rent.getdepartmentStore().getId());
 			st.setDouble(4,rent.getCurrentRent());
 			st.setDouble(5, rent.getCurrentPayedRent());
 			st.setBoolean(6, rent.isPayed());

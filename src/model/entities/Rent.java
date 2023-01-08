@@ -9,19 +9,19 @@ public class Rent implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date currentMonth;
-	private int mallId;
-	private int departmentStoreId;
+	private Mall mall;
+	private DepartmentStore departmentStore;
 	private Double currentRent;
 	private Double currentPayedRent;
 	private boolean payed;
 	
-	public Rent(int id, Date currentMonth, int mallId, int departmentStoreId, Double currentRent, Double currentPayedRent,
+	public Rent(int id, Date currentMonth, Mall mall, DepartmentStore departmentStore, Double currentRent, Double currentPayedRent,
 			boolean payed) {
 		super();
 		this.id = id;
 		this.currentMonth = currentMonth;
-		this.mallId = mallId;
-		this.departmentStoreId = departmentStoreId;
+		this.mall = mall;
+		this.departmentStore = departmentStore;
 		this.currentRent = currentRent;
 		this.currentPayedRent = currentPayedRent;
 		this.payed = payed;
@@ -38,17 +38,17 @@ public class Rent implements Serializable{
 	public void setCurrentMonth(Date currentMonth) {
 		this.currentMonth = currentMonth;
 	}
-	public int getMallId() {
-		return mallId;
+	public Mall getMall() {
+		return mall;
 	}
-	public void setMallId(int mallId) {
-		this.mallId = mallId;
+	public void setMall(Mall mallId) {
+		this.mall = mallId;
 	}
-	public int getdepartmentStoreId() {
-		return departmentStoreId;
+	public DepartmentStore getdepartmentStore() {
+		return departmentStore;
 	}
-	public void setdepartmentStoreId(int departmentStoreId) {
-		this.departmentStoreId = departmentStoreId;
+	public void setdepartmentStore(DepartmentStore departmentStore) {
+		this.departmentStore = departmentStore;
 	}
 	public Double getCurrentRent() {
 		return currentRent;
@@ -88,9 +88,10 @@ public class Rent implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Rent [id=" + id + ", currentMonth=" + currentMonth + ", mallId=" + mallId + ", departmentStoreId="
-				+ departmentStoreId + ", currentRent=" + currentRent + ", currentPayedRent=" + currentPayedRent + ", payed="
-				+ payed + "]";
+		return "Rent [id=" + id + ", currentMonth=" + currentMonth + ", mall=" + mall + ", departmentStore="
+				+ departmentStore + ", currentRent=" + currentRent + ", currentPayedRent=" + currentPayedRent
+				+ ", payed=" + payed + "]";
 	}
+	
 	
 }
