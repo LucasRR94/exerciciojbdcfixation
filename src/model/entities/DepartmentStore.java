@@ -28,6 +28,9 @@ public class DepartmentStore implements Serializable {
 		this.currentSizeOccupied = currentSizeOccupied;
 		this.mall = mall;
 	}
+	public DepartmentStore(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
