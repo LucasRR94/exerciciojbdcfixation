@@ -20,6 +20,11 @@ public class Mall implements Serializable{
 		this.stateOfCountry = stateOfCountry;
 		this.country = country;
 	}
+	
+	public Mall(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		return "Mall [id=" + id + ", Name=" + Name + ", cityName=" + cityName + ", stateOfCountry=" + stateOfCountry
