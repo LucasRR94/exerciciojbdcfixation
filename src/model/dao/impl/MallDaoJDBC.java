@@ -54,6 +54,24 @@ public class MallDaoJDBC implements MallDao {
 	@Override
 	public void updateMall(Mall mall) {
 		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE mall "
+					+ "SET Name = ?, CityName = ?, StateOfCountry = ?, Country = ? "
+					+ "WHERE Id = ? ");
+			st.setString(1, mall.getName());
+			st.setString(2, mall.getCityName());
+			st.setString(3, mall.getStateOfCountry());
+			st.setString(4, mall.getCountry());
+			st.setInt(5, mall.getId());
+			st.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
