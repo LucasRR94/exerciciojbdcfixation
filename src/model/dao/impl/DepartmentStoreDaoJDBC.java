@@ -56,6 +56,27 @@ public class DepartmentStoreDaoJDBC implements DepartmentStoreDao {
 	@Override
 	public void updateDepartmentStore(DepartmentStore dep) {
 		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE department_store "
+					+ "SET CNPJ = ?, Name = ?, Email = ?, CreationDate = ?, StartedDateAtMall = ?, CurrentSizeOccupy = ?, MallId = ? " 
+					+ "WHERE Id = ? ");
+			st.setString(1,dep.getCnpj());
+			st.setString(2, dep.getName());
+			st.setString(3, dep.getEmail());
+			st.setDate(4, new java.sql.Date(dep.getCreationDate().getTime()));
+			st.setDate(5, new java.sql.Date(dep.getStartedDateAtMall().getTime()));
+			st.setInt(6, dep.getCurrentSizeOccupied());
+			st.setInt(7, dep.getMall().getId());
+			st.setInt(8, dep.getId());
+			st.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
