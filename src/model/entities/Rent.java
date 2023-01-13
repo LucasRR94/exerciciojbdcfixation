@@ -26,6 +26,11 @@ public class Rent implements Serializable{
 		this.currentPayedRent = currentPayedRent;
 		this.payed = payed;
 	}
+	
+	public Rent(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
