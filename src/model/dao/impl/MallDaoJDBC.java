@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -118,7 +119,21 @@ public class MallDaoJDBC implements MallDao {
 	@Override
 	public List<Mall> findAllMall() {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<Mall> allMalls = null;
+		try {
+			st = conn.prepareStatement("SELECT mall.* FROM mall");
+			rs = st.executeQuery();
+			allMalls = new ArrayList<Mall>();
+			while(rs.next()) {
+				allMalls.add(new Mall(rs.getInt("mall.Id"),rs.getString("mall.Name"),rs.getString("mall.CityName"),rs.getString("mall.StateOfCountry"),rs.getString("mall.Country")));
+			}
+			return allMalls;
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 	@Override
