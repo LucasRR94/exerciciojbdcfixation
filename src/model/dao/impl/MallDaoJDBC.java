@@ -139,7 +139,25 @@ public class MallDaoJDBC implements MallDao {
 	@Override
 	public Mall findByIdOfRent(Rent rent) {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT mall.*" 
+							+ "FROM rent INNER JOIN mall ON rent.MallId = mall.Id WHERE rent.Id = ? ");
+			System.out.println(rent.getId());
+			st.setInt(1, rent.getId());
+			rs = st.executeQuery();
+			if(rs.next()) {
+				return new Mall(rs.getInt("mall.Id"),rs.getString("mall.Name"),rs.getString("mall.cityName"),rs.getString("mall.stateOfCountry"),rs.getString("mall.country"));
+			}
+			return null;
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
