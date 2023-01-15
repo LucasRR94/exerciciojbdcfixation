@@ -138,7 +138,38 @@ public class DepartmentStoreDaoJDBC implements DepartmentStoreDao {
 	@Override
 	public List<DepartmentStore> findAllDepartmentStore() {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<DepartmentStore> allDeps = null;
+		try {
+			st = conn.prepareStatement("SELECT department_store.*,mall.Id as mallId FROM department_store "
+					+ "INNER JOIN mall ON department_store.MallId = mall.Id ");
+			rs = st.executeQuery();
+			Map <Integer,Mall> malls = new HashMap<>();
+			allDeps =  new ArrayList<DepartmentStore>();
+			while(rs.next()) {
+				int mallId = rs.getInt("mallId");
+				if(malls.get(mallId) == null) {
+					malls.put(mallId, new Mall(mallId));
+				}
+				allDeps.add(new DepartmentStore(
+						rs.getInt("department_store.Id"),
+						rs.getString("department_store.CNPJ"),
+						rs.getString("department_store.Name"),
+						rs.getString("department_store.Email"),
+						rs.getDate("department_store.CreationDate"),
+						rs.getDate("department_store.StartedDateAtMall"),
+						rs.getInt("department_store.CurrentSizeOccupy"),
+						malls.get(mallId)
+						));
+			}
+			return allDeps;
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
