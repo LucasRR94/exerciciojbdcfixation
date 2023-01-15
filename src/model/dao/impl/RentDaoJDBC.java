@@ -192,7 +192,10 @@ public class RentDaoJDBC implements RentDao {
 			Map <Integer, Mall> mapMall = new HashMap<>();
 			while(rs.next()) {
 				Mall mall = mapMall.get(rs.getInt("mallId"));
-				if(mall == null) mall = new Mall(rs.getInt("mallId"));
+				if(mall == null) {
+					mapMall.put(rs.getInt("mallId"),new Mall(rs.getInt("mallId")));
+					mall = mapMall.get(rs.getInt("mallId"));
+				}
 				allRents.add(new Rent(rs.getInt("rent.Id"),rs.getDate("rent.CurrentMonth"), mall, dep,rs.getDouble("rent.CurrentRent"),rs.getDouble("rent.currentPayedRent"),rs.getBoolean("rent.Payed")));
 			}
 			return allRents;
