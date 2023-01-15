@@ -151,8 +151,14 @@ public class RentDaoJDBC implements RentDao {
 			while(rs.next()) {
 				DepartmentStore dep = mapDep.get(rs.getInt("departmentStoreId"));
 				Mall mall = mapMall.get(rs.getInt("mallId"));
-				if(dep == null) dep = new DepartmentStore(rs.getInt("departmentStoreId"));
-				if(mall == null) mall = new Mall(rs.getInt("mallId"));
+				if(dep == null) {
+					mapDep.put(rs.getInt("departmentStoreId"),new DepartmentStore(rs.getInt("departmentStoreId")));
+					dep = mapDep.get(rs.getInt("departmentStoreId"));
+				}
+				if(mall == null) {
+					mapMall.put(rs.getInt("mallId"),new Mall(rs.getInt("mallId")));
+					mall = mapMall.get(rs.getInt("mallId"));
+				}
 				allRents.add(new Rent(rs.getInt("rent.Id"),rs.getDate("rent.CurrentMonth"), mall, dep,rs.getDouble("rent.CurrentRent"),rs.getDouble("rent.currentPayedRent"),rs.getBoolean("rent.Payed")));
 			}
 			return allRents;
