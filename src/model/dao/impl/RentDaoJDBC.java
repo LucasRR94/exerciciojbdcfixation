@@ -229,7 +229,10 @@ public class RentDaoJDBC implements RentDao {
 			Map <Integer, DepartmentStore> mapDep = new HashMap<>();
 			while(rs.next()) {
 				DepartmentStore dep = mapDep.get(rs.getInt("departmentStoreId"));
-				if(dep == null) dep = new DepartmentStore(rs.getInt("departmentStoreId"));
+				if(dep == null) {
+					mapDep.put(rs.getInt("departmentStoreId"),new DepartmentStore(rs.getInt("departmentStoreId")));
+					dep = mapDep.get(rs.getInt("departmentStoreId"));
+				}
 				allRents.add(new Rent(rs.getInt("rent.Id"),rs.getDate("rent.CurrentMonth"), mall, dep,rs.getDouble("rent.CurrentRent"),rs.getDouble("rent.currentPayedRent"),rs.getBoolean("rent.Payed")));
 			}
 			return allRents;
