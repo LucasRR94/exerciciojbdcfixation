@@ -142,7 +142,7 @@ public class MallDaoJDBC implements MallDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT mall.*" 
+			st = conn.prepareStatement("SELECT mall.* " 
 							+ "FROM rent INNER JOIN mall ON rent.MallId = mall.Id WHERE rent.Id = ? ");
 			System.out.println(rent.getId());
 			st.setInt(1, rent.getId());
