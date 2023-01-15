@@ -213,7 +213,37 @@ public class DepartmentStoreDaoJDBC implements DepartmentStoreDao {
 	@Override
 	public DepartmentStore findByIdOfRent(Rent rent) {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT department_store.*,mall.Id as mallId FROM department_store "
+					+"INNER JOIN mall ON department_store.MallId = mall.id "
+					+"INNER JOIN rent ON department_store.Id = rent.DepartmentStoreId "
+					+ "WHERE rent.Id = ?" 
+					);
+			st.setInt(1, rent.getId());
+			rs = st.executeQuery();
+			if(rs.next()) {
+				Mall mall = new Mall(rs.getInt("mallId"));
+				DepartmentStore dep = new DepartmentStore(
+						rs.getInt("department_store.Id"),
+						rs.getString("department_store.CNPJ"),
+						rs.getString("department_store.Name"),
+						rs.getString("department_store.Email"),
+						rs.getDate("department_store.CreationDate"),
+						rs.getDate("department_store.StartedDateAtMall"),
+						rs.getInt("department_store.CurrentSizeOccupy")
+						,mall);
+				return dep;
+			}
+			return null;
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 }
