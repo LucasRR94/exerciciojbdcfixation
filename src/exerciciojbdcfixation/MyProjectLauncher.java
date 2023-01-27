@@ -151,9 +151,43 @@ public class MyProjectLauncher {
 				break;
 		}
 	}
+	
+	static void deleteMall(MallDao mall, Scanner sc) {
+		System.out.println("Type the id of the mall for deletion");
+		int id = sc.nextInt();
+		mall.deleteByIdMall(id);
+	}
+	
+	static void deleteRent(RentDao rent, Scanner sc) {
+		System.out.println("Type the id of the rent for deletion");
+		int id = sc.nextInt();
+		rent.deleteByIdRent(id);
+	}
+	
+	static void deleteDepartmentStore(DepartmentStoreDao dep, Scanner sc) {
+		System.out.println("Type the id of the department store for deletion");
+		int id = sc.nextInt();
+		dep.deleteByIdOfDepartmentStore(id);
+	}
 
-	static void deleteRecord() {
-
+	static void deleteRecord(MallDao mall, RentDao rent, DepartmentStoreDao dep, Scanner sc) {
+		System.out.println("Type 1 for delete on Department Store");
+		System.out.println("Type 2 for delete on Rent");
+		System.out.println("Type 3 for delete on mall");
+		int option = sc.nextInt();
+		switch (option) {
+			case 1:
+				deleteDepartmentStore(dep,sc);
+				break;
+			case 2:
+				deleteRent(rent,sc);
+				break;
+			case 3:
+				deleteMall(mall,sc);
+				break;
+			default:
+				break;
+		}
 	}
 
 	static void updateRecord() {
@@ -181,7 +215,7 @@ public class MyProjectLauncher {
 					readTable(mallDao, rentDao, departmentStoreDao, sc);
 					break;
 				case 3:
-					deleteRecord();
+					deleteRecord(mallDao, rentDao, departmentStoreDao, sc);
 					break;
 				default:
 					cond = false;
